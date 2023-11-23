@@ -101,13 +101,18 @@ return {
     opts = {
       ensure_installed = {
         "bash",
+        "c",
+        "cpp",
         "javascript",
         "json",
         "lua",
+        "make",
         "markdown",
         "markdown_inline",
         "query",
+        "python",
         "regex",
+        "rust",
         "tsx",
         "typescript",
         "vim",

@@ -17,17 +17,19 @@ if is_clip_executable() then
     vim.api.nvim_create_autocmd("TextYankPost", {
         pattern = "*",
         callback = function(event)
-            local copied_string = table.concat(event.recontents, "\n")
-            local win_yank = "/tmp/winyank"
-            local tmp_file = io.open(win_yank, "w")
+            if event.operator == 'y' then
+              local copied_string = table.concat(event.regcontents, "\n")
+              local win_yank = "/tmp/winyank"
+              local tmp_file = io.open(win_yank, "w")
 
-            if tmp_file then
-                tmp_file:write(copied_string)
+              if tmp_file then
+                  tmp_file:write(copied_string)
 
-                tmp_file:close()
+                  tmp_file:close()
+              end
+
+              vim.fn.system(clip_pathname .. " < " .. win_yank)
             end
-
-            vim.fn.system(clip_pathname .. " < " .. win_yank)
         end,
         group = augroup("WSLYank"),
     })
